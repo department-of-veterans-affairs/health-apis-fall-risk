@@ -1,0 +1,44 @@
+{
+    "objectType" : "Survey",
+    "objectVersion" : "1",
+    "cdwId" : "1000000030337",
+    "isCompleteFlag" : "false",
+    "patientSid" : "1234",
+    "locationSid" : "123455",
+    "patientFullIcn" : "12345V67890",
+    "rawScore" : "50",
+    "sta3n" : "640",
+    "surveyGivenDateTime" : "1997-05-09T14:21:18Z",
+    "surveyResultSid" : "55555",
+    "surveySavedDateTime" : "1997-05-09T14:21:18Z",
+    "surveyName" : "FAKE SURVEY",
+    "testPatientFlag" : "false",
+    "surveyScale" : "FAKE SCALE",
+    "transmissionTime" : "1997-05-09T14:21:18Z",
+    "transmissionStatus" : "Y",
+    "administeredBy" : {
+        "emailAddress" : "drwinston@ow.com",
+        "firstName" : "Harold",
+        "lastName" : "Winston",
+        "name" : "Winston, Harold",
+        "networkUsername" : "ilovepeanutbutter",
+        "staffSid" : "678"
+    },
+    "orderedBy" : {
+        "emailAddress" : "mercy@ow.com",
+        "firstName" : "Angela",
+        "lastName" : "Ziegler",
+        "name" : "Ziegler, Angela",
+        "networkUsername" : "heroesneverdie",
+        "staffSid" : "777"
+    },
+    "surveyQuestion" : [
+        {
+            "surveyQuestionText" : "Are you experiencing any problems with your genetic therapy?",
+            "surveyChoiceText" : "A crippling addiction to peanut butter.",
+            "surveyAnswerText" : "A crippling addiction to peanut butter.",
+            "legacyValue" : "Y",
+            "questionSequence" : "10"
+        }
+    ]
+}

@@ -56,6 +56,10 @@ public class DatamartSurvey {
 
   private String cdwId;
 
+  public FallRiskResponse asFallRiskResponse() {
+    return new FallRiskResponse();
+  }
+
   @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)

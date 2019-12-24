@@ -1,6 +1,7 @@
 package gov.va.api.health.fallrisk.service.controller;
 
 import java.time.Instant;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +11,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+// TODO Make and move this to a fall-risk-api project
 public class FallRiskResponse {
-  String patient;
+  @NotNull String patient;
 
-  int morseScore;
+  @NotNull int morseScore;
 
-  String facilityId;
+  @NotNull String facilityId;
 
-  Instant timeModified;
+  @NotNull Instant timeModified;
 
-  String providerEmail;
+  @NotNull String providerEmail;
 }

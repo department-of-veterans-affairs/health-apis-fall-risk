@@ -23,7 +23,7 @@ import lombok.SneakyThrows;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class SurveyEntity {
+class SurveyEntity {
 
   @Column(name = "patientFullIcn")
   String patientFullIcn;

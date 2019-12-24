@@ -32,11 +32,5 @@
       <artifactId>mssql-jdbc</artifactId>
       <version>${mssql-jdbc.version}</version>
     </dependency>
-    <!-- Move this to test scope after MSSQL is available -->
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>compile</scope>
-    </dependency>
   </dependencies>
 </project>

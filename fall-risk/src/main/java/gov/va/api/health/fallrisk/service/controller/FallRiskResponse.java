@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-// TODO Make and move this to a fall-risk-api project
 public class FallRiskResponse {
   @NotNull String patient;
 

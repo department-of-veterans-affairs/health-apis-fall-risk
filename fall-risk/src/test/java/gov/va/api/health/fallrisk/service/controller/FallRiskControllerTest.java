@@ -71,15 +71,16 @@ class FallRiskControllerTest {
                         .surveyAnswerText("A crippling addiction to peanut butter.")
                         .build()))
             .build();
+    SurveyEntity surveyEntity =
+        SurveyEntity.builder()
+            .cdwId("1000000030337")
+            .patientFullIcn("12345V67890")
+            .sta3n(640)
+            .surveyName("FAKE SURVEY")
+            .payload(JacksonConfig.createMapper().writeValueAsString(survey))
+            .build();
     when(surveyRepository.findByPatientFullIcnAndSurveyName(anyString(), anyString()))
-        .thenReturn(
-            SurveyEntity.builder()
-                .cdwId("1000000030337")
-                .patientFullIcn("12345V67890")
-                .sta3n(640)
-                .surveyName("FAKE SURVEY")
-                .payload(JacksonConfig.createMapper().writeValueAsString(survey))
-                .build());
+        .thenReturn(surveyEntity);
 
     FallRiskResponse response = controller().searchByPatient("12345V67890");
     assertThat(response)
@@ -91,5 +92,6 @@ class FallRiskControllerTest {
                 .providerEmail("mercy@ow.com")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
                 .build());
+    assertThat(surveyEntity.toString()).isNotNull();
   }
 }

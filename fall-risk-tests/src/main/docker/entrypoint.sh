@@ -87,7 +87,7 @@ validateProvidedVariables() {
 setupForTests() {
   validateProvidedVariables
 
-  SYSTEM_PROPERTIES="-Dsentinel.fall-risk.url=$K8S_LOAD_BALANCER \
+  SYSTEM_PROPERTIES="-Dsentinel.fall-risk.url=https://$K8S_LOAD_BALANCER \
     -Dsentinel.fall-risk.api-path=$FALL_RISK_API_PATH \
     -Dsentinel=$SENTINEL_ENV"
 }

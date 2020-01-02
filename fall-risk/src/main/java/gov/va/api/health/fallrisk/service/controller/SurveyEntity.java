@@ -1,6 +1,7 @@
 package gov.va.api.health.fallrisk.service.controller;
 
 import gov.va.api.health.autoconfig.configuration.JacksonConfig;
+import java.time.Instant;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,9 @@ class SurveyEntity {
   @Column(name = "sta3n")
   private int sta3n;
 
+  @Column(name = "surveySavedDateTime")
+  private long surveySavedDateTime;
+
   @Column(name = "Survey")
   @Basic(fetch = FetchType.EAGER)
   @Lob
@@ -47,5 +51,9 @@ class SurveyEntity {
   @SneakyThrows
   DatamartSurvey asDatamartSurvey() {
     return JacksonConfig.createMapper().readValue(payload, DatamartSurvey.class);
+  }
+
+  public Instant surveySavedDateTime() {
+    return Instant.ofEpochMilli(surveySavedDateTime);
   }
 }

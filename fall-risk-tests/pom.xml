@@ -26,6 +26,13 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>gov.va.api.health</groupId>
+      <artifactId>fall-risk</artifactId>
+      <version>${project.version}</version>
+      <classifier>library</classifier>
+      <type>jar</type>
+    </dependency>
+    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>test</scope>

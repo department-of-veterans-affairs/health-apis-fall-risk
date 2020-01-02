@@ -2,6 +2,9 @@
 
 set -o pipefail
 
+[ -z "$BASE_DIR" ] && BASE_DIR="/fall-risk-tests"
+cd $BASE_DIR
+
 #
 # Usage Information
 #

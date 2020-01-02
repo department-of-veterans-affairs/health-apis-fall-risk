@@ -10,6 +10,11 @@
   <artifactId>fall-risk</artifactId>
   <version>1.0.4-SNAPSHOT</version>
   <packaging>jar</packaging>
+  <properties>
+    <mssql-jdbc.version>7.4.1.jre12</mssql-jdbc.version>
+    <!-- Temporarily lowering until there is more meat to cover -->
+    <jacoco.coverage>0.93</jacoco.coverage>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -19,6 +24,15 @@
     <dependency>
       <groupId>gov.va.api.health</groupId>
       <artifactId>service-auto-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>${mssql-jdbc.version}</version>
     </dependency>
   </dependencies>
 </project>

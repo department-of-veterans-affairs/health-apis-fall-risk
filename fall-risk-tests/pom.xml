@@ -12,6 +12,7 @@
   <packaging>jar</packaging>
   <properties>
     <groups>gov.va.api.health.sentinel.categories.Local</groups>
+    <sentinel.skipLaunch>false</sentinel.skipLaunch>
   </properties>
   <dependencies>
     <dependency>
@@ -19,7 +20,58 @@
       <artifactId>sentinel</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
+    <dependency>
+      <groupId>gov.va.api.health</groupId>
+      <artifactId>fall-risk</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.bazaarvoice.maven.plugins</groupId>
+        <artifactId>process-exec-maven-plugin</artifactId>
+        <version>${process-exec-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>ids-process</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+            <configuration>
+              <name>fall-risk</name>
+              <waitForInterrupt>false</waitForInterrupt>
+              <healthcheckUrl>http://localhost:8070/actuator/health</healthcheckUrl>
+              <skip>${sentinel.skipLaunch}</skip>
+              <arguments>
+                <argument>java</argument>
+                <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5091</argument>
+                <argument>-cp</argument>
+                <argument>fall-risk.jar${path.separator}h2.jar</argument>
+                <argument>-Dloader=gov.va.api.health.fallrisk.service.Application</argument>
+                <argument>-Dlogging.level.root=INFO</argument>
+                <argument>-Dspring.datasource.driver-class-name=org.h2.Driver</argument>
+                <argument>-Dspring.datasource.url=jdbc:h2:${project.basedir}/target/test-classes/mitre</argument>
+                <argument>-Dspring.datasource.username=sa</argument>
+                <argument>-Dspring.datasource.password=sa</argument>
+                <argument>-Dspring.jpa.generate-ddl=false</argument>
+                <argument>-Dspring.jpa.hibernate.ddl-auto=none</argument>
+                <argument>-Dspring.jpa.properties.hibernate.globally_quoted_identifiers=false</argument>
+                <argument>-Dspring.config.location=classpath:/application.properties,file:${project.basedir}/config/secrets.properties</argument>
+                <argument>org.springframework.boot.loader.PropertiesLauncher</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
   <profiles>
     <profile>
       <id>release</id>

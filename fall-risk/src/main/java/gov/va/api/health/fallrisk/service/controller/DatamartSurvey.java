@@ -56,6 +56,21 @@ public class DatamartSurvey {
 
   private String cdwId;
 
+  /**
+   * Convert this survey to a FallRiskResponse.
+   *
+   * @return The FallRiskResponse
+   */
+  FallRiskResponse asFallRiskResponse() {
+    return FallRiskResponse.builder()
+        .patient(patientFullIcn)
+        .facilityId(Integer.toString(sta3n))
+        .morseScore(rawScore)
+        .providerEmail(orderedBy.emailAddress)
+        .timeModified(surveySavedDateTime)
+        .build();
+  }
+
   @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -20,7 +20,8 @@ public class FallRiskIT {
                 .contentType("application/json")
                 .request(
                     Method.GET,
-                    TestClients.fallRisk().service().urlWithApiPath() + "?patient=12345V67890"))
+                    TestClients.fallRisk().service().urlWithApiPath()
+                        + "fallrisk?patient=12345V67890"))
         .expect(500);
   }
 }

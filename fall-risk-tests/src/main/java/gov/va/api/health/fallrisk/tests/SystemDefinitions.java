@@ -17,7 +17,7 @@ public class SystemDefinitions {
   private static SystemDefinition lab() {
     String url = "https://dev-api.va.gov";
     return SystemDefinition.builder()
-        .fallRisk(serviceDefinition("fall-risk", url, 443, "/services/"))
+        .fallRisk(serviceDefinition("fall-risk", url, 443, "/services/fall-risk"))
         .build();
   }
 
@@ -33,7 +33,7 @@ public class SystemDefinitions {
   private static SystemDefinition production() {
     String url = "https://api.va.gov";
     return SystemDefinition.builder()
-        .fallRisk(serviceDefinition("fall-risk", url, 443, "/services/"))
+        .fallRisk(serviceDefinition("fall-risk", url, 443, "/services/fall-risk/"))
         .build();
   }
 
@@ -41,7 +41,7 @@ public class SystemDefinitions {
   private static SystemDefinition qa() {
     String url = "https://blue.qa.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .fallRisk(serviceDefinition("fall-risk", url, 443, "/"))
+        .fallRisk(serviceDefinition("fall-risk", url, 443, "/fall-risk/"))
         .build();
   }
 
@@ -59,7 +59,7 @@ public class SystemDefinitions {
   private static SystemDefinition staging() {
     String url = "https://blue.staging.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .fallRisk(serviceDefinition("fall-risk", url, 443, "/"))
+        .fallRisk(serviceDefinition("fall-risk", url, 443, "/fall-risk/"))
         .build();
   }
 
@@ -67,7 +67,7 @@ public class SystemDefinitions {
   private static SystemDefinition stagingLab() {
     String url = "https://blue.staging-lab.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .fallRisk(serviceDefinition("fall-risk", url, 443, "/"))
+        .fallRisk(serviceDefinition("fall-risk", url, 443, "/fall-risk/"))
         .build();
   }
 

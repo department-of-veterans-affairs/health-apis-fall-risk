@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RestController
 @RequestMapping(
-  value = {"/fallrisk"},
+  value = {"/assessment"},
   produces = {"application/json"}
 )
 @Slf4j

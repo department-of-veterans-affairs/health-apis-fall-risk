@@ -21,7 +21,7 @@ public class FallRiskIT {
                 .request(
                     Method.GET,
                     TestClients.fallRisk().service().urlWithApiPath()
-                        + "fallrisk?patient=12345V67890"))
+                        + "assessment?patient=12345V67890"))
         .expect(500);
   }
 }

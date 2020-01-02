@@ -7,7 +7,7 @@
     <version>4.0.4</version>
   </parent>
   <artifactId>fall-risk-parent</artifactId>
-  <version>1.0.5-SNAPSHOT</version>
+  <version>1.0.5</version>
   <packaging>pom</packaging>
   <modules>
     <module>fall-risk</module>

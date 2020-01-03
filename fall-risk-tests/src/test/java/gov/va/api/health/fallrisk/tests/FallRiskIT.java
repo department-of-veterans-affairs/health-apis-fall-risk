@@ -48,5 +48,6 @@ public class FallRiskIT {
             .expectValid(FallRiskAssessmentResponse.class);
     assertThat(response).isNotNull();
     assertThat(response.getFacilityId()).isEqualTo("640");
+    assertThat(response.getPatient()).isEqualTo("43000199");
   }
 }

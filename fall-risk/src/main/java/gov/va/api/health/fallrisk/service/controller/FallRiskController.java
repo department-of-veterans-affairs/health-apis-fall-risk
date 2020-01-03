@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor(onConstructor = @__({@Autowired}))
 public class FallRiskController {
 
-  private static String FALL_RISK_SURVEY_NAME = "IDK";
+  private static String FALL_RISK_SURVEY_NAME = "MORSE FALL SCALE";
 
   private SurveyRepository surveyRepository;
 

@@ -26,22 +26,22 @@ import lombok.SneakyThrows;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 class SurveyEntity {
 
-  @Column(name = "patientFullIcn")
-  String patientFullIcn;
+  @Column(name = "PatientFullICN")
+  private String patientFullIcn;
 
-  @Column(name = "surveyName")
-  String surveyName;
+  @Column(name = "SurveyName")
+  private String surveyName;
 
   @Id
   @Column(name = "CDWId")
   @EqualsAndHashCode.Include
   private String cdwId;
 
-  @Column(name = "sta3n")
+  @Column(name = "Sta3n")
   private int sta3n;
 
-  @Column(name = "surveySavedDateTime")
-  private long surveySavedDateTime;
+  @Column(name = "SurveyRecordedDate")
+  private Long surveySavedDateTime;
 
   @Column(name = "Survey")
   @Basic(fetch = FetchType.EAGER)
@@ -51,9 +51,5 @@ class SurveyEntity {
   @SneakyThrows
   DatamartSurvey asDatamartSurvey() {
     return JacksonConfig.createMapper().readValue(payload, DatamartSurvey.class);
-  }
-
-  public Instant surveySavedDateTime() {
-    return Instant.ofEpochMilli(surveySavedDateTime);
   }
 }

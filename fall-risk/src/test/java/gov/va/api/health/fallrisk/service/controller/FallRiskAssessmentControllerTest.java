@@ -77,6 +77,7 @@ class FallRiskAssessmentControllerTest {
         .patientFullIcn("12345V67890")
         .sta3n(640)
         .surveyName("FAKE SURVEY")
+        .surveySavedDateTime(Instant.now().toEpochMilli())
         .payload(JacksonConfig.createMapper().writeValueAsString(survey))
         .build();
   }

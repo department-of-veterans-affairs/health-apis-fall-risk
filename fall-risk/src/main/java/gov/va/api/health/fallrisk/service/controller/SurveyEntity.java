@@ -1,7 +1,6 @@
 package gov.va.api.health.fallrisk.service.controller;
 
 import gov.va.api.health.autoconfig.configuration.JacksonConfig;
-import java.time.Instant;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,16 +25,16 @@ import lombok.SneakyThrows;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 class SurveyEntity {
 
+  @Id
+  @Column(name = "CDWId")
+  @EqualsAndHashCode.Include
+  private String cdwId;
+
   @Column(name = "PatientFullICN")
   private String patientFullIcn;
 
   @Column(name = "SurveyName")
   private String surveyName;
-
-  @Id
-  @Column(name = "CDWId")
-  @EqualsAndHashCode.Include
-  private String cdwId;
 
   @Column(name = "Sta3n")
   private int sta3n;

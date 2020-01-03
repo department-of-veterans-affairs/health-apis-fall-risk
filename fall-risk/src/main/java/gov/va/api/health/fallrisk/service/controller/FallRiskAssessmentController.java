@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Builder
 @AllArgsConstructor(onConstructor = @__({@Autowired}))
-public class FallRiskController {
+public class FallRiskAssessmentController {
 
   private static String FALL_RISK_SURVEY_NAME = "MORSE FALL SCALE";
 
@@ -35,13 +35,13 @@ public class FallRiskController {
    * @return The fall risk responses for the Facility and time.
    */
   @GetMapping(params = {"facility", "since"})
-  public List<FallRiskResponse> searchByFacilityAndSince(
+  public List<FallRiskAssessmentResponse> searchByFacilityAndSince(
       @RequestParam("facility") int facilityId, @RequestParam("since") long since) {
     return surveyRepository
         .findByFacilityIdTimeAndSurveyName(facilityId, since, FALL_RISK_SURVEY_NAME)
         .stream()
         .map(SurveyEntity::asDatamartSurvey)
-        .map(DatamartSurvey::asFallRiskResponse)
+        .map(DatamartSurvey::asFallRiskAssessmentResponse)
         .collect(Collectors.toList());
   }
 
@@ -52,10 +52,10 @@ public class FallRiskController {
    * @return The fall risk response for the patient.
    */
   @GetMapping(params = {"patient"})
-  public FallRiskResponse searchByPatient(@RequestParam("patient") String patientIcn) {
+  public FallRiskAssessmentResponse searchByPatient(@RequestParam("patient") String patientIcn) {
     return surveyRepository
         .findByPatientFullIcnAndSurveyName(patientIcn, FALL_RISK_SURVEY_NAME)
         .asDatamartSurvey()
-        .asFallRiskResponse();
+        .asFallRiskAssessmentResponse();
   }
 }

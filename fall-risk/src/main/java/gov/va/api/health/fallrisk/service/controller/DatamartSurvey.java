@@ -61,8 +61,8 @@ public class DatamartSurvey {
    *
    * @return The FallRiskResponse
    */
-  FallRiskResponse asFallRiskResponse() {
-    return FallRiskResponse.builder()
+  FallRiskAssessmentResponse asFallRiskAssessmentResponse() {
+    return FallRiskAssessmentResponse.builder()
         .patient(patientFullIcn)
         .facilityId(Integer.toString(sta3n))
         .morseScore(rawScore)

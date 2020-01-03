@@ -22,7 +22,7 @@ public class FallRiskIT {
                 .request(
                     Method.GET,
                     TestClients.fallRisk().service().urlWithApiPath()
-                        + "?facility=640&since="
+                        + "assessment?facility=640&since="
                         + Instant.now().toEpochMilli()))
         .expect(500);
   }

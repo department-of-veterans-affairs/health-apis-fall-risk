@@ -16,12 +16,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class FallRiskControllerTest {
+class FallRiskAssessmentControllerTest {
 
   @Mock SurveyRepository surveyRepository;
 
-  FallRiskController controller() {
-    return FallRiskController.builder().surveyRepository(surveyRepository).build();
+  FallRiskAssessmentController controller() {
+    return FallRiskAssessmentController.builder().surveyRepository(surveyRepository).build();
   }
 
   @SneakyThrows
@@ -86,11 +86,11 @@ class FallRiskControllerTest {
     SurveyEntity fakeSurveyEntity = fakeSurveyEntity();
     when(surveyRepository.findByFacilityIdTimeAndSurveyName(anyInt(), anyLong(), anyString()))
         .thenReturn(List.of(fakeSurveyEntity));
-    List<FallRiskResponse> response =
+    List<FallRiskAssessmentResponse> response =
         controller().searchByFacilityAndSince(640, Instant.now().toEpochMilli());
     assertThat(response)
         .containsExactly(
-            FallRiskResponse.builder()
+            FallRiskAssessmentResponse.builder()
                 .patient("12345V67890")
                 .facilityId("640")
                 .morseScore(50)
@@ -104,10 +104,10 @@ class FallRiskControllerTest {
     SurveyEntity surveyEntity = fakeSurveyEntity();
     when(surveyRepository.findByPatientFullIcnAndSurveyName(anyString(), anyString()))
         .thenReturn(surveyEntity);
-    FallRiskResponse response = controller().searchByPatient("12345V67890");
+    FallRiskAssessmentResponse response = controller().searchByPatient("12345V67890");
     assertThat(response)
         .isEqualTo(
-            FallRiskResponse.builder()
+            FallRiskAssessmentResponse.builder()
                 .patient("12345V67890")
                 .facilityId("640")
                 .morseScore(50)

@@ -23,7 +23,7 @@ import lombok.SneakyThrows;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-class SurveyEntity {
+public class SurveyEntity {
 
   @Id
   @Column(name = "CDWId")

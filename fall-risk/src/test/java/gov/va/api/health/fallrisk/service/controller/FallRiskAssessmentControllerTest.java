@@ -1,6 +1,8 @@
 package gov.va.api.health.fallrisk.service.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -14,17 +16,16 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class FallRiskControllerTest {
+class FallRiskAssessmentControllerTest {
 
   @Mock SurveyRepository surveyRepository;
 
-  FallRiskController controller() {
-    return FallRiskController.builder().surveyRepository(surveyRepository).build();
+  FallRiskAssessmentController controller() {
+    return FallRiskAssessmentController.builder().surveyRepository(surveyRepository).build();
   }
 
-  @Test
   @SneakyThrows
-  void searchByPatientReturnsCorrectFallRiskResponse() {
+  private SurveyEntity fakeSurveyEntity() {
     DatamartSurvey survey =
         DatamartSurvey.builder()
             .cdwId("1000000030337")
@@ -71,21 +72,43 @@ class FallRiskControllerTest {
                         .surveyAnswerText("A crippling addiction to peanut butter.")
                         .build()))
             .build();
-    SurveyEntity surveyEntity =
-        SurveyEntity.builder()
-            .cdwId("1000000030337")
-            .patientFullIcn("12345V67890")
-            .sta3n(640)
-            .surveyName("FAKE SURVEY")
-            .payload(JacksonConfig.createMapper().writeValueAsString(survey))
-            .build();
+    return SurveyEntity.builder()
+        .cdwId("1000000030337")
+        .patientFullIcn("12345V67890")
+        .sta3n(640)
+        .surveyName("FAKE SURVEY")
+        .surveySavedDateTime(Instant.parse("1997-05-09T14:21:18Z").toEpochMilli())
+        .payload(JacksonConfig.createMapper().writeValueAsString(survey))
+        .build();
+  }
+
+  @Test
+  void searchByFacilityAndSinceReturnsCorrectFallRiskResponse() {
+    SurveyEntity fakeSurveyEntity = fakeSurveyEntity();
+    when(surveyRepository.findByFacilityIdTimeAndSurveyName(anyInt(), anyLong(), anyString()))
+        .thenReturn(List.of(fakeSurveyEntity));
+    List<FallRiskAssessmentResponse> response =
+        controller().searchByFacilityAndSince(640, Instant.now().toEpochMilli());
+    assertThat(response)
+        .containsExactly(
+            FallRiskAssessmentResponse.builder()
+                .patient("12345V67890")
+                .facilityId("640")
+                .morseScore(50)
+                .providerEmail("mercy@ow.com")
+                .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
+                .build());
+  }
+
+  @Test
+  void searchByPatientReturnsCorrectFallRiskResponse() {
+    SurveyEntity surveyEntity = fakeSurveyEntity();
     when(surveyRepository.findByPatientFullIcnAndSurveyName(anyString(), anyString()))
         .thenReturn(surveyEntity);
-
-    FallRiskResponse response = controller().searchByPatient("12345V67890");
+    FallRiskAssessmentResponse response = controller().searchByPatient("12345V67890");
     assertThat(response)
         .isEqualTo(
-            FallRiskResponse.builder()
+            FallRiskAssessmentResponse.builder()
                 .patient("12345V67890")
                 .facilityId("640")
                 .morseScore(50)

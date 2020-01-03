@@ -23,21 +23,24 @@ import lombok.SneakyThrows;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-class SurveyEntity {
-
-  @Column(name = "patientFullIcn")
-  String patientFullIcn;
-
-  @Column(name = "surveyName")
-  String surveyName;
+public class SurveyEntity {
 
   @Id
   @Column(name = "CDWId")
   @EqualsAndHashCode.Include
   private String cdwId;
 
-  @Column(name = "sta3n")
+  @Column(name = "PatientFullICN")
+  private String patientFullIcn;
+
+  @Column(name = "SurveyName")
+  private String surveyName;
+
+  @Column(name = "Sta3n")
   private int sta3n;
+
+  @Column(name = "SurveyRecordedDate")
+  private Long surveySavedDateTime;
 
   @Column(name = "Survey")
   @Basic(fetch = FetchType.EAGER)

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FallRiskResponse {
+public class FallRiskAssessmentResponse {
   @NotNull String patient;
 
   @NotNull int morseScore;

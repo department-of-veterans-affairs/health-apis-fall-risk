@@ -5,10 +5,27 @@ import gov.va.api.health.fallrisk.tests.categories.ProdFallRisk;
 import gov.va.api.health.sentinel.ExpectedResponse;
 import gov.va.api.health.sentinel.categories.Local;
 import io.restassured.http.Method;
+import java.time.Instant;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class FallRiskIT {
+
+  @Test
+  @Category({Local.class, ProdFallRisk.class, LabFallRisk.class})
+  public void searchByFacilityAndSince() {
+    ExpectedResponse.of(
+            TestClients.fallRisk()
+                .service()
+                .requestSpecification()
+                .contentType("application/json")
+                .request(
+                    Method.GET,
+                    TestClients.fallRisk().service().urlWithApiPath()
+                        + "assessment?facility=640&since="
+                        + Instant.now().toEpochMilli()))
+        .expect(500);
+  }
 
   @Test
   @Category({Local.class, ProdFallRisk.class, LabFallRisk.class})

@@ -33,7 +33,7 @@ public class WebExceptionHandler {
   })
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErrorMessage handleBadRequest(Exception e, HttpServletRequest request) {
-    return ErrorMessage.of(e.getMessage());
+    return ErrorMessage.of(e.getClass().getSimpleName() + ": " + e.getMessage());
   }
 
   @ExceptionHandler({HttpClientErrorException.NotFound.class})

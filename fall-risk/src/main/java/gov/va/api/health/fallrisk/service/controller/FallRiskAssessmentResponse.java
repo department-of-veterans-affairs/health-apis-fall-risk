@@ -1,5 +1,6 @@
 package gov.va.api.health.fallrisk.service.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.Instant;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,9 @@ public class FallRiskAssessmentResponse {
 
   @NotNull String facilityId;
 
-  @NotNull Instant timeModified;
+  @NotNull
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "UTC")
+  Instant timeModified;
 
   @NotNull String providerEmail;
 }

@@ -10,7 +10,7 @@ public class WebExceptionHandlerTest {
   void handleBadRequest() {
     WebExceptionHandler.ErrorMessage result =
         handler().handleBadRequest(new RuntimeException("HI"), null);
-    assertThat(result).isEqualTo(WebExceptionHandler.ErrorMessage.of("HI"));
+    assertThat(result).isEqualTo(WebExceptionHandler.ErrorMessage.of("RuntimeException: HI"));
   }
 
   @Test

@@ -48,6 +48,21 @@ public class FallRiskIT {
   }
 
   @Test
+  @Category({Local.class, LabFallRisk.class, ProdFallRisk.class})
+  public void searchByFacilityAndSinceReturnsBadRequestForUnparseableDate() {
+    ExpectedResponse.of(
+            TestClients.fallRisk()
+                .service()
+                .requestSpecification()
+                .contentType("application/json")
+                .request(
+                    Method.GET,
+                    TestClients.fallRisk().service().urlWithApiPath()
+                        + "assessment?facility=640&since=IDKMYBFFJILL"))
+        .expect(400);
+  }
+
+  @Test
   @Category({Local.class, LabFallRisk.class})
   public void searchByPatient() {
     FallRiskAssessmentResponse response =

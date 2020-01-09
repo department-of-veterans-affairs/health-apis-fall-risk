@@ -83,12 +83,30 @@ class FallRiskAssessmentControllerTest {
   }
 
   @Test
-  void searchByFacilityAndSinceReturnsCorrectFallRiskResponse() {
+  void searchByFacilityAndSinceAsDateReturnsCorrectFallRiskResponse() {
     SurveyEntity fakeSurveyEntity = fakeSurveyEntity();
     when(surveyRepository.findByFacilityIdTimeAndSurveyName(anyInt(), anyLong(), anyString()))
         .thenReturn(List.of(fakeSurveyEntity));
     List<FallRiskAssessmentResponse> response =
-        controller().searchByFacilityAndSince(640, Instant.now().toEpochMilli());
+        controller().searchByFacilityAndSince(640, Instant.now().toString());
+    assertThat(response)
+        .containsExactly(
+            FallRiskAssessmentResponse.builder()
+                .patient("12345V67890")
+                .facilityId("640")
+                .morseScore(50)
+                .providerEmail("mercy@ow.com")
+                .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
+                .build());
+  }
+
+  @Test
+  void searchByFacilityAndSinceAsLongReturnsCorrectFallRiskResponse() {
+    SurveyEntity fakeSurveyEntity = fakeSurveyEntity();
+    when(surveyRepository.findByFacilityIdTimeAndSurveyName(anyInt(), anyLong(), anyString()))
+        .thenReturn(List.of(fakeSurveyEntity));
+    List<FallRiskAssessmentResponse> response =
+        controller().searchByFacilityAndSince(640, Long.toString(Instant.now().toEpochMilli()));
     assertThat(response)
         .containsExactly(
             FallRiskAssessmentResponse.builder()

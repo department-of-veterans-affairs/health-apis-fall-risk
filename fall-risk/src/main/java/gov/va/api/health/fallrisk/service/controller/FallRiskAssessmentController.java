@@ -1,5 +1,7 @@
 package gov.va.api.health.fallrisk.service.controller;
 
+import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,21 @@ public class FallRiskAssessmentController {
   private SurveyRepository surveyRepository;
 
   /**
+   * Parse the string to a DateTime and return the epoch, or parse to a long if its not a date, and
+   * assume that is an epoch.
+   *
+   * @param time The string to parse
+   * @return A long value for parsing an epoch.
+   */
+  private long asEpoch(String time) {
+    try {
+      return Instant.parse(time).toEpochMilli();
+    } catch (DateTimeParseException e) {
+      return Long.parseLong(time);
+    }
+  }
+
+  /**
    * Search for the fall risk responses for a facility after a given time.
    *
    * @param facilityId The facility to search for fall risk surveys for.
@@ -36,9 +53,9 @@ public class FallRiskAssessmentController {
    */
   @GetMapping(params = {"facility", "since"})
   public List<FallRiskAssessmentResponse> searchByFacilityAndSince(
-      @RequestParam("facility") int facilityId, @RequestParam("since") long since) {
+      @RequestParam("facility") int facilityId, @RequestParam("since") String since) {
     return surveyRepository
-        .findByFacilityIdTimeAndSurveyName(facilityId, since, FALL_RISK_SURVEY_NAME)
+        .findByFacilityIdTimeAndSurveyName(facilityId, asEpoch(since), FALL_RISK_SURVEY_NAME)
         .stream()
         .map(SurveyEntity::asDatamartSurvey)
         .map(DatamartSurvey::asFallRiskAssessmentResponse)

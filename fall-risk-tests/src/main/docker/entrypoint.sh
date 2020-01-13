@@ -72,6 +72,9 @@ doTest() {
   # Run It
   java -cp "$(pwd)/*" $SYSTEM_PROPERTIES org.junit.runner.JUnitCore $filter $tests \
     | grep -vE "^	at ($noise)"
+
+  # Exit on failure otherwise let other actions run.
+  [ $? != 0 ] && exit 1
 }
 
 # Goes through all required variables and checks for their existence
@@ -89,7 +92,8 @@ setupForTests() {
 
   SYSTEM_PROPERTIES="-Dsentinel.fall-risk.url=https://$K8S_LOAD_BALANCER \
     -Dsentinel.fall-risk.api-path=$FALL_RISK_API_PATH \
-    -Dsentinel=$SENTINEL_ENV"
+    -Dsentinel=$SENTINEL_ENV \
+    -Dfall-risk-token=$FR_TOKEN"
 }
 
 # Runs Smoke Tests

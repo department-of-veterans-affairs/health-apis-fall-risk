@@ -7,12 +7,17 @@ import gov.va.api.health.fallrisk.tests.categories.LabFallRisk;
 import gov.va.api.health.fallrisk.tests.categories.ProdFallRisk;
 import gov.va.api.health.sentinel.ExpectedResponse;
 import gov.va.api.health.sentinel.categories.Local;
+import io.restassured.http.Header;
 import io.restassured.http.Method;
 import java.util.List;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class FallRiskIT {
+
+  private Header fallRiskToken() {
+    return new Header("client-key", System.getProperty("fall-risk-token", "not-supplied"));
+  }
 
   @Test
   @Category({Local.class, LabFallRisk.class})
@@ -22,6 +27,7 @@ public class FallRiskIT {
                 TestClients.fallRisk()
                     .service()
                     .requestSpecification()
+                    .header(fallRiskToken())
                     .contentType("application/json")
                     .request(
                         Method.GET,
@@ -39,6 +45,7 @@ public class FallRiskIT {
             TestClients.fallRisk()
                 .service()
                 .requestSpecification()
+                .header(fallRiskToken())
                 .contentType("application/json")
                 .request(
                     Method.GET,
@@ -54,6 +61,7 @@ public class FallRiskIT {
             TestClients.fallRisk()
                 .service()
                 .requestSpecification()
+                .header(fallRiskToken())
                 .contentType("application/json")
                 .request(
                     Method.GET,
@@ -70,6 +78,7 @@ public class FallRiskIT {
                 TestClients.fallRisk()
                     .service()
                     .requestSpecification()
+                    .header(fallRiskToken())
                     .contentType("application/json")
                     .request(
                         Method.GET,
@@ -89,6 +98,7 @@ public class FallRiskIT {
             TestClients.fallRisk()
                 .service()
                 .requestSpecification()
+                .header(fallRiskToken())
                 .contentType("application/json")
                 .request(
                     Method.GET,

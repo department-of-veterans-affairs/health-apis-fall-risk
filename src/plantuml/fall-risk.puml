@@ -1,0 +1,65 @@
+@startuml
+
+skinparam handwritten true
+hide <<fr>> stereotype
+
+skinparam {
+  shadowing false
+  ArrowColor steelblue
+  ActorBackgroundColor #FFF
+  ActorBorderColor #000
+  CloudBackgroundColor #FFF
+  CloudBorderColor #000
+  ComponentBackgroundColor #FFF
+  ComponentBorderColor #000
+  DatabaseBackgroundColor #FFF
+  DatabaseBorderColor #000
+  FileBackgroundColor #FFF
+  FileBorderColor #000
+  RectangleBackgroundColor #FFF
+  RectangleBorderColor #000
+  ControlBorderColor #000
+
+  ControlBackgroundColor<<fr>> lightsteelblue
+  ComponentBackgroundColor<<fr>> lightsteelblue
+  DatabaseBackgroundColor<<fr>> lightsteelblue
+  FileBackgroundColor<<fr>> lightsteelblue
+  FileBorderColor #000
+  RectangleBackgroundColor #FFF
+  RectangleBorderColor #000
+
+}
+
+actor "Restricted\nConsumer" as user
+cloud "Alert\nRecipient" as sync
+rectangle "Blue ALB" as alb
+
+database "Data Query\nDatamart" as dqdb
+cloud VLER
+
+
+[kong] <<fr>>
+[fall-risk] <<fr>>
+[fall-risk-notifier] <<fr>>
+file alert <<fr>>
+database "Fall Risk\nDatamart" as frdb <<fr>>
+database CDW
+control ETL <<fr>>
+
+[kong] -(0- [fall-risk]
+[fall-risk] -(0- [data-query] : "  patient"
+[fall-risk] -(0- [provider-directory] : " email"
+[fall-risk] -- frdb
+[fall-risk-notifier] -right(0- [fall-risk]
+[fall-risk-notifier] .up.> alert
+alert ..up.> sync
+
+user --> alb
+alb -(0- [kong]
+[data-query] -- dqdb
+[provider-directory] -(0- VLER
+
+
+CDW -up-> ETL
+ETL -up-> frdb
+@enduml

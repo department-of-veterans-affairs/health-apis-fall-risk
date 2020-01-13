@@ -4,10 +4,10 @@
   <parent>
     <groupId>gov.va.api.health</groupId>
     <artifactId>health-apis-parent</artifactId>
-    <version>4.0.4</version>
+    <version>4.0.5</version>
   </parent>
   <artifactId>fall-risk-parent</artifactId>
-  <version>1.0.17-SNAPSHOT</version>
+  <version>1.0.17</version>
   <packaging>pom</packaging>
   <modules>
     <module>fall-risk</module>

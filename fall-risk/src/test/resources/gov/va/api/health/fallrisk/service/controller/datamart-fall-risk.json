@@ -16,26 +16,22 @@
     "divisionName" : "OW",
     "specialty" : "FALL",
     "wardLocationName" : "LAB",
-    "administeredBy" : [
-        {
-            "emailAddress" : "drwinston@ow.com",
-            "firstName" : "Harold",
-            "lastName" : "Winston",
-            "name" : "Winston, Harold",
-            "npi" : "ilovepeanutbutter",
-            "officePhone" : "123",
-            "serviceSection" : "GENETICS"
-        }
-    ],
-    "orderedBy" : [
-        {
-            "emailAddress" : "mercy@ow.com",
-            "firstName" : "Angela",
-            "lastName" : "Ziegler",
-            "name" : "Ziegler, Angela",
-            "npi" : "heroesneverdie",
-            "officePhone" : "911",
-            "serviceSection" : "MEDICAL"
-        }
-    ]
+    "administeredBy" : {
+        "emailAddress" : "drwinston@ow.com",
+        "firstName" : "Harold",
+        "lastName" : "Winston",
+        "name" : "Winston, Harold",
+        "npi" : "ilovepeanutbutter",
+        "officePhone" : "123",
+        "serviceSection" : "GENETICS"
+    },
+    "orderedBy" : {
+        "emailAddress" : "mercy@ow.com",
+        "firstName" : "Angela",
+        "lastName" : "Ziegler",
+        "name" : "Ziegler, Angela",
+        "npi" : "heroesneverdie",
+        "officePhone" : "911",
+        "serviceSection" : "MEDICAL"
+    }
 }

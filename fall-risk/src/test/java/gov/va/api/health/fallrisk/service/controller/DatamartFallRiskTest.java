@@ -4,7 +4,6 @@ import static gov.va.api.health.autoconfig.configuration.JacksonConfig.createMap
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Instant;
-import java.util.List;
 import lombok.SneakyThrows;
 import org.junit.Test;
 
@@ -33,27 +32,25 @@ public class DatamartFallRiskTest {
         .patientName("OXTON, LENA")
         .stationName("GIBRALTAR")
         .administeredBy(
-            List.of(
-                DatamartFallRisk.Provider.builder()
-                    .emailAddress("drwinston@ow.com")
-                    .firstName("Harold")
-                    .lastName("Winston")
-                    .name("Winston, Harold")
-                    .npi("ilovepeanutbutter")
-                    .officePhone("123")
-                    .serviceSection("GENETICS")
-                    .build()))
+            DatamartFallRisk.Provider.builder()
+                .emailAddress("drwinston@ow.com")
+                .firstName("Harold")
+                .lastName("Winston")
+                .name("Winston, Harold")
+                .npi("ilovepeanutbutter")
+                .officePhone("123")
+                .serviceSection("GENETICS")
+                .build())
         .orderedBy(
-            List.of(
-                DatamartFallRisk.Provider.builder()
-                    .npi("heroesneverdie")
-                    .serviceSection("MEDICAL")
-                    .officePhone("911")
-                    .firstName("Angela")
-                    .lastName("Ziegler")
-                    .name("Ziegler, Angela")
-                    .emailAddress("mercy@ow.com")
-                    .build()))
+            DatamartFallRisk.Provider.builder()
+                .npi("heroesneverdie")
+                .serviceSection("MEDICAL")
+                .officePhone("911")
+                .firstName("Angela")
+                .lastName("Ziegler")
+                .name("Ziegler, Angela")
+                .emailAddress("mercy@ow.com")
+                .build())
         .build();
   }
 

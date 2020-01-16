@@ -3,7 +3,6 @@ package gov.va.api.health.fallrisk.service.controller;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.time.Instant;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,9 +46,9 @@ public class DatamartFallRisk {
 
   String surveyScale;
 
-  List<Provider> orderedBy;
+  Provider orderedBy;
 
-  List<Provider> administeredBy;
+  Provider administeredBy;
 
   @Builder.Default private String objectType = "Survey";
 
@@ -67,7 +66,7 @@ public class DatamartFallRisk {
         .patient(patientFullIcn)
         .facilityId(Integer.toString(station))
         .morseScore(morseScore)
-        .providerEmail(orderedBy.isEmpty() ? null : orderedBy.get(0).emailAddress)
+        .providerEmail(orderedBy.emailAddress)
         .timeModified(surveyGivenDateTimeUtc)
         .build();
   }

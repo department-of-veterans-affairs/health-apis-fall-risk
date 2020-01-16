@@ -1,0 +1,37 @@
+{
+    "objectType" : "Survey",
+    "objectVersion" : "1",
+    "cdwId" : "1000000030337",
+    "patientFullICN" : "12345V67890",
+    "morseScore" : 50,
+    "morseCategory" : "medium",
+    "station" : 640,
+    "stationName" : "GIBRALTAR",
+    "surveyGivenDateTimeUTC" : "1997-05-09T14:21:18Z",
+    "surveyName" : "FAKE SURVEY",
+    "surveyScale" : "FAKE SCALE",
+    "patientName" : "OXTON, LENA",
+    "bedSection" : "BED",
+    "locationName" : "WATCHPOINT",
+    "divisionName" : "OW",
+    "specialty" : "FALL",
+    "wardLocationName" : "LAB",
+    "administeredBy" : {
+        "emailAddress" : "drwinston@ow.com",
+        "firstName" : "Harold",
+        "lastName" : "Winston",
+        "name" : "Winston, Harold",
+        "npi" : "ilovepeanutbutter",
+        "officePhone" : "123",
+        "serviceSection" : "GENETICS"
+    },
+    "orderedBy" : {
+        "emailAddress" : "mercy@ow.com",
+        "firstName" : "Angela",
+        "lastName" : "Ziegler",
+        "name" : "Ziegler, Angela",
+        "npi" : "heroesneverdie",
+        "officePhone" : "911",
+        "serviceSection" : "MEDICAL"
+    }
+}

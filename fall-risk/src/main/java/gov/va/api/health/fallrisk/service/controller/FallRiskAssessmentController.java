@@ -1,5 +1,6 @@
 package gov.va.api.health.fallrisk.service.controller;
 
+import gov.va.api.health.autoconfig.logging.Loggable;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -22,25 +23,23 @@ import org.springframework.web.bind.annotation.RestController;
 )
 @Slf4j
 @Builder
+@Loggable
 @AllArgsConstructor(onConstructor = @__({@Autowired}))
 public class FallRiskAssessmentController {
-
-  private static String FALL_RISK_SURVEY_NAME = "MORSE FALL SCALE";
-
-  private SurveyRepository surveyRepository;
+  private FallRiskRepository fallRiskRepository;
 
   /**
    * Parse the string to a DateTime and return the epoch, or parse to a long if its not a date, and
    * assume that is an epoch.
    *
    * @param time The string to parse
-   * @return A long value for parsing an epoch.
+   * @return The parsed instant value.
    */
-  private long asEpoch(String time) {
+  private Instant asInstant(String time) {
     try {
-      return Instant.parse(time).toEpochMilli();
+      return Instant.parse(time);
     } catch (DateTimeParseException e) {
-      return Long.parseLong(time);
+      return Instant.ofEpochMilli(Long.parseLong(time));
     }
   }
 
@@ -54,11 +53,11 @@ public class FallRiskAssessmentController {
   @GetMapping(params = {"facility", "since"})
   public List<FallRiskAssessmentResponse> searchByFacilityAndSince(
       @RequestParam("facility") int facilityId, @RequestParam("since") String since) {
-    return surveyRepository
-        .findByFacilityIdTimeAndSurveyName(facilityId, asEpoch(since), FALL_RISK_SURVEY_NAME)
+    return fallRiskRepository
+        .findByFacilityIdAndTime(facilityId, asInstant(since))
         .stream()
-        .map(SurveyEntity::asDatamartSurvey)
-        .map(DatamartSurvey::asFallRiskAssessmentResponse)
+        .map(FallRiskEntity::asDatamartFallRisk)
+        .map(DatamartFallRisk::asFallRiskAssessmentResponse)
         .collect(Collectors.toList());
   }
 
@@ -69,10 +68,13 @@ public class FallRiskAssessmentController {
    * @return The fall risk response for the patient.
    */
   @GetMapping(params = {"patient"})
-  public FallRiskAssessmentResponse searchByPatient(@RequestParam("patient") String patientIcn) {
-    return surveyRepository
-        .findByPatientFullIcnAndSurveyName(patientIcn, FALL_RISK_SURVEY_NAME)
-        .asDatamartSurvey()
-        .asFallRiskAssessmentResponse();
+  public List<FallRiskAssessmentResponse> searchByPatient(
+      @RequestParam("patient") String patientIcn) {
+    return fallRiskRepository
+        .findByPatientFullIcn(patientIcn)
+        .stream()
+        .map(FallRiskEntity::asDatamartFallRisk)
+        .map(DatamartFallRisk::asFallRiskAssessmentResponse)
+        .collect(Collectors.toList());
   }
 }

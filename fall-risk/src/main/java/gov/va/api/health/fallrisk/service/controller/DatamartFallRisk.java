@@ -1,5 +1,6 @@
 package gov.va.api.health.fallrisk.service.controller;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.time.Instant;
 import java.util.List;
@@ -14,41 +15,41 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class DatamartSurvey {
+public class DatamartFallRisk {
 
   String surveyName;
 
-  int sta3n;
+  int station;
 
-  int locationSid;
+  String stationName;
 
-  long surveyResultSid;
+  String locationName;
 
+  String wardLocationName;
+
+  String divisionName;
+
+  String specialty;
+
+  String bedSection;
+
+  @JsonAlias("patientFullICN")
   String patientFullIcn;
 
-  long patientSid;
+  String patientName;
 
-  boolean testPatientFlag;
+  @JsonAlias("surveyGivenDateTimeUTC")
+  Instant surveyGivenDateTimeUtc;
 
-  Instant surveyGivenDateTime;
+  int morseScore;
 
-  Instant surveySavedDateTime;
-
-  boolean isCompleteFlag;
-
-  Instant transmissionTime;
-
-  String transmissionStatus;
-
-  int rawScore;
+  String morseCategory;
 
   String surveyScale;
 
-  List<SurveyQuestion> surveyQuestion;
+  List<Provider> orderedBy;
 
-  Provider orderedBy;
-
-  Provider administeredBy;
+  List<Provider> administeredBy;
 
   @Builder.Default private String objectType = "Survey";
 
@@ -64,10 +65,10 @@ public class DatamartSurvey {
   FallRiskAssessmentResponse asFallRiskAssessmentResponse() {
     return FallRiskAssessmentResponse.builder()
         .patient(patientFullIcn)
-        .facilityId(Integer.toString(sta3n))
-        .morseScore(rawScore)
-        .providerEmail(orderedBy.emailAddress)
-        .timeModified(surveySavedDateTime)
+        .facilityId(Integer.toString(station))
+        .morseScore(morseScore)
+        .providerEmail(orderedBy.isEmpty() ? null : orderedBy.get(0).emailAddress)
+        .timeModified(surveyGivenDateTimeUtc)
         .build();
   }
 
@@ -76,29 +77,12 @@ public class DatamartSurvey {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class SurveyQuestion {
-
-    int questionSequence;
-
-    String surveyQuestionText;
-
-    String surveyChoiceText;
-
-    String legacyValue;
-
-    String surveyAnswerText;
-  }
-
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   public static class Provider {
+    String npi;
 
-    long staffSid;
+    String officePhone;
 
-    String networkUsername;
+    String serviceSection;
 
     String name;
 

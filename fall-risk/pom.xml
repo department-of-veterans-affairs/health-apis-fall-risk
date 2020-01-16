@@ -13,7 +13,7 @@
   <properties>
     <mssql-jdbc.version>7.4.1.jre12</mssql-jdbc.version>
     <!-- Temporarily lowering until there is more meat to cover -->
-    <jacoco.coverage>0.94</jacoco.coverage>
+    <jacoco.coverage>0.90</jacoco.coverage>
   </properties>
   <dependencies>
     <dependency>

@@ -14,7 +14,7 @@ public class TestClients {
 
   static TestClient fallRisk() {
     return BasicTestClient.builder()
-        .service(SystemDefinitions.systemDefinition().getFallRisk())
+        .service(SystemDefinitions.systemDefinition().fallRisk())
         .contentType("application/json")
         .mapper(JacksonConfig::createMapper)
         .build();

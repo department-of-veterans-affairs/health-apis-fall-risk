@@ -19,11 +19,11 @@ import lombok.SneakyThrows;
 @Data
 @Entity
 @Builder
-@Table(name = "Survey", schema = "app")
+@Table(name = "FallRisk", schema = "app")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class SurveyEntity {
+public class FallRiskEntity {
 
   @Id
   @Column(name = "CDWId")
@@ -33,22 +33,25 @@ public class SurveyEntity {
   @Column(name = "PatientFullICN")
   private String patientFullIcn;
 
-  @Column(name = "SurveyName")
-  private String surveyName;
-
   @Column(name = "Sta3n")
-  private int sta3n;
+  private int station;
 
-  @Column(name = "SurveyRecordedDate")
-  private Long surveySavedDateTime;
+  @Column(name = "DateUTC")
+  private Long surveyGivenDateTime;
 
-  @Column(name = "Survey")
+  @Column(name = "MorseScore")
+  private int morseScore;
+
+  @Column(name = "MorseCategory")
+  private String morseCategory;
+
+  @Column(name = "FallRisk")
   @Basic(fetch = FetchType.EAGER)
   @Lob
   private String payload;
 
   @SneakyThrows
-  DatamartSurvey asDatamartSurvey() {
-    return JacksonConfig.createMapper().readValue(payload, DatamartSurvey.class);
+  DatamartFallRisk asDatamartFallRisk() {
+    return JacksonConfig.createMapper().readValue(payload, DatamartFallRisk.class);
   }
 }

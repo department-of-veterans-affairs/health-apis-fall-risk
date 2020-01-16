@@ -18,75 +18,68 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class FallRiskAssessmentControllerTest {
 
-  @Mock SurveyRepository surveyRepository;
+  @Mock FallRiskRepository fallRiskRepository;
 
   FallRiskAssessmentController controller() {
-    return FallRiskAssessmentController.builder().surveyRepository(surveyRepository).build();
+    return FallRiskAssessmentController.builder().fallRiskRepository(fallRiskRepository).build();
   }
 
   @SneakyThrows
-  private SurveyEntity fakeSurveyEntity() {
-    DatamartSurvey survey =
-        DatamartSurvey.builder()
+  private FallRiskEntity fakeSurveyEntity() {
+    DatamartFallRisk survey =
+        DatamartFallRisk.builder()
             .cdwId("1000000030337")
-            .isCompleteFlag(false)
-            .patientSid(1234)
-            .locationSid(123455)
             .patientFullIcn("12345V67890")
-            .rawScore(50)
-            .sta3n(640)
-            .surveyGivenDateTime(Instant.parse("1997-05-09T14:21:18Z"))
-            .surveyResultSid(55555)
-            .surveySavedDateTime(Instant.parse("1997-05-09T14:21:18Z"))
+            .morseScore(50)
+            .morseCategory("medium")
+            .station(640)
+            .surveyGivenDateTimeUtc(Instant.parse("1997-05-09T14:21:18Z"))
             .surveyName("FAKE SURVEY")
-            .testPatientFlag(false)
             .surveyScale("FAKE SCALE")
-            .transmissionTime(Instant.parse("1997-05-09T14:21:18Z"))
-            .transmissionStatus("Y")
+            .bedSection("BED")
+            .divisionName("OW")
+            .wardLocationName("WATCHPOINT")
+            .specialty("FALL")
+            .patientName("OXTON, LENA")
+            .stationName("GIBRALTAR")
             .administeredBy(
-                DatamartSurvey.Provider.builder()
-                    .emailAddress("drwinston@ow.com")
-                    .firstName("Harold")
-                    .lastName("Winston")
-                    .name("Winston, Harold")
-                    .networkUsername("ilovepeanutbutter")
-                    .staffSid(678)
-                    .build())
-            .orderedBy(
-                DatamartSurvey.Provider.builder()
-                    .staffSid(777)
-                    .networkUsername("heroesneverdie")
-                    .firstName("Angela")
-                    .lastName("Ziegler")
-                    .name("Ziegler, Angela")
-                    .emailAddress("mercy@ow.com")
-                    .build())
-            .surveyQuestion(
                 List.of(
-                    DatamartSurvey.SurveyQuestion.builder()
-                        .surveyQuestionText(
-                            "Are you experiencing any problems with your genetic therapy?")
-                        .surveyChoiceText("A crippling addiction to peanut butter.")
-                        .legacyValue("Y")
-                        .questionSequence(10)
-                        .surveyAnswerText("A crippling addiction to peanut butter.")
+                    DatamartFallRisk.Provider.builder()
+                        .emailAddress("drwinston@ow.com")
+                        .firstName("Harold")
+                        .lastName("Winston")
+                        .name("Winston, Harold")
+                        .npi("ilovepeanutbutter")
+                        .officePhone("123")
+                        .serviceSection("GENETICS")
+                        .build()))
+            .orderedBy(
+                List.of(
+                    DatamartFallRisk.Provider.builder()
+                        .npi("heroesneverdie")
+                        .serviceSection("MEDICAL")
+                        .officePhone("911")
+                        .firstName("Angela")
+                        .lastName("Ziegler")
+                        .name("Ziegler, Angela")
+                        .emailAddress("mercy@ow.com")
                         .build()))
             .build();
-    return SurveyEntity.builder()
+    return FallRiskEntity.builder()
         .cdwId("1000000030337")
         .patientFullIcn("12345V67890")
-        .sta3n(640)
-        .surveyName("FAKE SURVEY")
-        .surveySavedDateTime(Instant.parse("1997-05-09T14:21:18Z").toEpochMilli())
+        .station(640)
+        .morseScore(50)
+        .surveyGivenDateTime(Instant.parse("1997-05-09T14:21:18Z").toEpochMilli())
         .payload(JacksonConfig.createMapper().writeValueAsString(survey))
         .build();
   }
 
   @Test
   void searchByFacilityAndSinceAsDateReturnsCorrectFallRiskResponse() {
-    SurveyEntity fakeSurveyEntity = fakeSurveyEntity();
-    when(surveyRepository.findByFacilityIdTimeAndSurveyName(anyInt(), anyLong(), anyString()))
-        .thenReturn(List.of(fakeSurveyEntity));
+    FallRiskEntity fakeFallRiskEntity = fakeSurveyEntity();
+    when(fallRiskRepository.findByFacilityIdAndTime(anyInt(), anyLong()))
+        .thenReturn(List.of(fakeFallRiskEntity));
     List<FallRiskAssessmentResponse> response =
         controller().searchByFacilityAndSince(640, Instant.now().toString());
     assertThat(response)
@@ -102,9 +95,9 @@ class FallRiskAssessmentControllerTest {
 
   @Test
   void searchByFacilityAndSinceAsLongReturnsCorrectFallRiskResponse() {
-    SurveyEntity fakeSurveyEntity = fakeSurveyEntity();
-    when(surveyRepository.findByFacilityIdTimeAndSurveyName(anyInt(), anyLong(), anyString()))
-        .thenReturn(List.of(fakeSurveyEntity));
+    FallRiskEntity fakeFallRiskEntity = fakeSurveyEntity();
+    when(fallRiskRepository.findByFacilityIdAndTime(anyInt(), anyLong()))
+        .thenReturn(List.of(fakeFallRiskEntity));
     List<FallRiskAssessmentResponse> response =
         controller().searchByFacilityAndSince(640, Long.toString(Instant.now().toEpochMilli()));
     assertThat(response)
@@ -120,9 +113,8 @@ class FallRiskAssessmentControllerTest {
 
   @Test
   void searchByPatientReturnsCorrectFallRiskResponse() {
-    SurveyEntity surveyEntity = fakeSurveyEntity();
-    when(surveyRepository.findByPatientFullIcnAndSurveyName(anyString(), anyString()))
-        .thenReturn(surveyEntity);
+    FallRiskEntity fallRiskEntity = fakeSurveyEntity();
+    when(fallRiskRepository.findByPatientFullIcn(anyString())).thenReturn(fallRiskEntity);
     FallRiskAssessmentResponse response = controller().searchByPatient("12345V67890");
     assertThat(response)
         .isEqualTo(
@@ -133,6 +125,6 @@ class FallRiskAssessmentControllerTest {
                 .providerEmail("mercy@ow.com")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
                 .build());
-    assertThat(surveyEntity.toString()).isNotNull();
+    assertThat(fallRiskEntity.toString()).isNotNull();
   }
 }

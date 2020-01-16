@@ -20,16 +20,7 @@ public class FallRiskIT {
   }
 
   @Test
-  @Category({LabFallRisk.class})
-  public void noOp() {
-    assertThat(true).isTrue();
-  }
-
-  @Test
-  @Category({
-    Local.class,
-    // LabFallRisk.class
-  })
+  @Category({Local.class, LabFallRisk.class})
   public void searchByFacilityAndSince() {
     List<FallRiskAssessmentResponse> response =
         ExpectedResponse.of(
@@ -80,10 +71,7 @@ public class FallRiskIT {
   }
 
   @Test
-  @Category({
-    Local.class,
-    // LabFallRisk.class
-  })
+  @Category({Local.class, LabFallRisk.class})
   public void searchByPatient() {
     List<FallRiskAssessmentResponse> response =
         ExpectedResponse.of(

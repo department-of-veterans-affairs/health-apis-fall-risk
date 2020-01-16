@@ -3,10 +3,15 @@ package gov.va.api.health.fallrisk.tests;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import gov.va.api.health.fallrisk.service.controller.FallRiskAssessmentResponse;
+import gov.va.api.health.fallrisk.tests.categories.LabFallRisk;
+import gov.va.api.health.fallrisk.tests.categories.ProdFallRisk;
 import gov.va.api.health.sentinel.ExpectedResponse;
+import gov.va.api.health.sentinel.categories.Local;
 import io.restassured.http.Header;
 import io.restassured.http.Method;
 import java.util.List;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class FallRiskIT {
 
@@ -14,11 +19,17 @@ public class FallRiskIT {
     return new Header("client-key", System.getProperty("fall-risk-token", "not-supplied"));
   }
 
-  //  @Test
-  //  @Category({
-  //    Local.class,
-  //    // LabFallRisk.class
-  //  })
+  @Test
+  @Category({LabFallRisk.class})
+  public void noOp() {
+    assertThat(true).isTrue();
+  }
+
+  @Test
+  @Category({
+    Local.class,
+    // LabFallRisk.class
+  })
   public void searchByFacilityAndSince() {
     List<FallRiskAssessmentResponse> response =
         ExpectedResponse.of(
@@ -36,8 +47,8 @@ public class FallRiskIT {
     assertThat(response.size()).isEqualTo(2);
   }
 
-  //  @Test
-  //  @Category({ProdFallRisk.class})
+  @Test
+  @Category({ProdFallRisk.class})
   public void searchByFacilityAndSinceForProd() {
     ExpectedResponse.of(
             TestClients.fallRisk()
@@ -52,8 +63,8 @@ public class FallRiskIT {
         .expect(500);
   }
 
-  //  @Test
-  //  @Category({Local.class, LabFallRisk.class, ProdFallRisk.class})
+  @Test
+  @Category({Local.class, LabFallRisk.class, ProdFallRisk.class})
   public void searchByFacilityAndSinceReturnsBadRequestForUnparseableDate() {
     ExpectedResponse.of(
             TestClients.fallRisk()
@@ -68,11 +79,11 @@ public class FallRiskIT {
         .expect(400);
   }
 
-  //  @Test
-  //  @Category({
-  //    Local.class,
-  //    // LabFallRisk.class
-  //  })
+  @Test
+  @Category({
+    Local.class,
+    // LabFallRisk.class
+  })
   public void searchByPatient() {
     List<FallRiskAssessmentResponse> response =
         ExpectedResponse.of(
@@ -92,8 +103,8 @@ public class FallRiskIT {
     assertThat(response.get(0).patient()).isEqualTo("43000199");
   }
 
-  //  @Test
-  //  @Category({ProdFallRisk.class})
+  @Test
+  @Category({ProdFallRisk.class})
   public void searchByPatientForProd() {
     ExpectedResponse.of(
             TestClients.fallRisk()

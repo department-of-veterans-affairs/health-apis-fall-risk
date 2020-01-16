@@ -20,7 +20,10 @@ public class FallRiskIT {
   }
 
   @Test
-  @Category({Local.class, LabFallRisk.class})
+  @Category({
+    Local.class,
+    // LabFallRisk.class
+  })
   public void searchByFacilityAndSince() {
     List<FallRiskAssessmentResponse> response =
         ExpectedResponse.of(
@@ -71,7 +74,10 @@ public class FallRiskIT {
   }
 
   @Test
-  @Category({Local.class, LabFallRisk.class})
+  @Category({
+    Local.class,
+    // LabFallRisk.class
+  })
   public void searchByPatient() {
     FallRiskAssessmentResponse response =
         ExpectedResponse.of(

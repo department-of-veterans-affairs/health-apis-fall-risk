@@ -70,7 +70,7 @@ class FallRiskAssessmentControllerTest {
         .patientFullIcn("12345V67890")
         .station(640)
         .morseScore(50)
-        .surveyGivenDateTime(Instant.parse("1997-05-09T14:21:18Z").toEpochMilli())
+        .surveyGivenDateTime(Instant.parse("1997-05-09T14:21:18Z"))
         .payload(JacksonConfig.createMapper().writeValueAsString(survey))
         .build();
   }

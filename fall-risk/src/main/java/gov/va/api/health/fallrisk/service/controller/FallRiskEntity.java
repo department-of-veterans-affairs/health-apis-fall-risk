@@ -1,6 +1,7 @@
 package gov.va.api.health.fallrisk.service.controller;
 
 import gov.va.api.health.autoconfig.configuration.JacksonConfig;
+import java.time.Instant;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,8 +37,8 @@ public class FallRiskEntity {
   @Column(name = "Sta3n")
   private int station;
 
-  @Column(name = "DateUTC")
-  private Long surveyGivenDateTime;
+  @Column(name = "DateUTC", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+  private Instant surveyGivenDateTime;
 
   @Column(name = "MorseScore")
   private int morseScore;

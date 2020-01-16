@@ -33,13 +33,13 @@ public class FallRiskAssessmentController {
    * assume that is an epoch.
    *
    * @param time The string to parse
-   * @return A long value for parsing an epoch.
+   * @return The parsed instant value.
    */
-  private long asEpoch(String time) {
+  private Instant asInstant(String time) {
     try {
-      return Instant.parse(time).toEpochMilli();
+      return Instant.parse(time);
     } catch (DateTimeParseException e) {
-      return Long.parseLong(time);
+      return Instant.ofEpochMilli(Long.parseLong(time));
     }
   }
 
@@ -54,7 +54,7 @@ public class FallRiskAssessmentController {
   public List<FallRiskAssessmentResponse> searchByFacilityAndSince(
       @RequestParam("facility") int facilityId, @RequestParam("since") String since) {
     return fallRiskRepository
-        .findByFacilityIdAndTime(facilityId, asEpoch(since))
+        .findByFacilityIdAndTime(facilityId, asInstant(since))
         .stream()
         .map(FallRiskEntity::asDatamartFallRisk)
         .map(DatamartFallRisk::asFallRiskAssessmentResponse)

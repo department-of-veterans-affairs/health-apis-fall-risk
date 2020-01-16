@@ -1,8 +1,8 @@
 package gov.va.api.health.fallrisk.service.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -78,7 +78,7 @@ class FallRiskAssessmentControllerTest {
   @Test
   void searchByFacilityAndSinceAsDateReturnsCorrectFallRiskResponse() {
     FallRiskEntity fakeFallRiskEntity = fakeSurveyEntity();
-    when(fallRiskRepository.findByFacilityIdAndTime(anyInt(), anyLong()))
+    when(fallRiskRepository.findByFacilityIdAndTime(anyInt(), any(Instant.class)))
         .thenReturn(List.of(fakeFallRiskEntity));
     List<FallRiskAssessmentResponse> response =
         controller().searchByFacilityAndSince(640, Instant.now().toString());
@@ -96,7 +96,7 @@ class FallRiskAssessmentControllerTest {
   @Test
   void searchByFacilityAndSinceAsLongReturnsCorrectFallRiskResponse() {
     FallRiskEntity fakeFallRiskEntity = fakeSurveyEntity();
-    when(fallRiskRepository.findByFacilityIdAndTime(anyInt(), anyLong()))
+    when(fallRiskRepository.findByFacilityIdAndTime(anyInt(), any(Instant.class)))
         .thenReturn(List.of(fakeFallRiskEntity));
     List<FallRiskAssessmentResponse> response =
         controller().searchByFacilityAndSince(640, Long.toString(Instant.now().toEpochMilli()));

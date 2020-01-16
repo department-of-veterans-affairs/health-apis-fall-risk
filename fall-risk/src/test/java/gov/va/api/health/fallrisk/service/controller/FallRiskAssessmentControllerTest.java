@@ -114,10 +114,10 @@ class FallRiskAssessmentControllerTest {
   @Test
   void searchByPatientReturnsCorrectFallRiskResponse() {
     FallRiskEntity fallRiskEntity = fakeSurveyEntity();
-    when(fallRiskRepository.findByPatientFullIcn(anyString())).thenReturn(fallRiskEntity);
-    FallRiskAssessmentResponse response = controller().searchByPatient("12345V67890");
+    when(fallRiskRepository.findByPatientFullIcn(anyString())).thenReturn(List.of(fallRiskEntity));
+    List<FallRiskAssessmentResponse> response = controller().searchByPatient("12345V67890");
     assertThat(response)
-        .isEqualTo(
+        .containsExactly(
             FallRiskAssessmentResponse.builder()
                 .patient("12345V67890")
                 .facilityId("640")

@@ -68,10 +68,13 @@ public class FallRiskAssessmentController {
    * @return The fall risk response for the patient.
    */
   @GetMapping(params = {"patient"})
-  public FallRiskAssessmentResponse searchByPatient(@RequestParam("patient") String patientIcn) {
+  public List<FallRiskAssessmentResponse> searchByPatient(
+      @RequestParam("patient") String patientIcn) {
     return fallRiskRepository
         .findByPatientFullIcn(patientIcn)
-        .asDatamartFallRisk()
-        .asFallRiskAssessmentResponse();
+        .stream()
+        .map(FallRiskEntity::asDatamartFallRisk)
+        .map(DatamartFallRisk::asFallRiskAssessmentResponse)
+        .collect(Collectors.toList());
   }
 }

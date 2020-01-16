@@ -15,5 +15,5 @@ public interface FallRiskRepository extends PagingAndSortingRepository<FallRiskE
   @Query(FALL_RISK_BY_FACILITY_AND_TIME)
   List<FallRiskEntity> findByFacilityIdAndTime(int facility, Instant since);
 
-  FallRiskEntity findByPatientFullIcn(String icn);
+  List<FallRiskEntity> findByPatientFullIcn(String icn);
 }

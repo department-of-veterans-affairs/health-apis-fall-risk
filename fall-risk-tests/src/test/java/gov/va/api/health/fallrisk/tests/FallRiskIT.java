@@ -41,17 +41,20 @@ public class FallRiskIT {
   @Test
   @Category({ProdFallRisk.class})
   public void searchByFacilityAndSinceForProd() {
-    ExpectedResponse.of(
-            TestClients.fallRisk()
-                .service()
-                .requestSpecification()
-                .header(fallRiskToken())
-                .contentType("application/json")
-                .request(
-                    Method.GET,
-                    TestClients.fallRisk().service().urlWithApiPath()
-                        + "assessment?facility=640&since=1200000000"))
-        .expect(500);
+    List<FallRiskAssessmentResponse> response =
+        ExpectedResponse.of(
+                TestClients.fallRisk()
+                    .service()
+                    .requestSpecification()
+                    .header(fallRiskToken())
+                    .contentType("application/json")
+                    .request(
+                        Method.GET,
+                        TestClients.fallRisk().service().urlWithApiPath()
+                            + "assessment?facility=640&since=1558204659"))
+            .expect(200)
+            .expectListOf(FallRiskAssessmentResponse.class);
+    assertThat(response).hasSizeGreaterThanOrEqualTo(2);
   }
 
   @Test
@@ -94,16 +97,21 @@ public class FallRiskIT {
   @Test
   @Category({ProdFallRisk.class})
   public void searchByPatientForProd() {
-    ExpectedResponse.of(
-            TestClients.fallRisk()
-                .service()
-                .requestSpecification()
-                .header(fallRiskToken())
-                .contentType("application/json")
-                .request(
-                    Method.GET,
-                    TestClients.fallRisk().service().urlWithApiPath()
-                        + "assessment?patient=43000199"))
-        .expect(500);
+    List<FallRiskAssessmentResponse> response =
+        ExpectedResponse.of(
+                TestClients.fallRisk()
+                    .service()
+                    .requestSpecification()
+                    .header(fallRiskToken())
+                    .contentType("application/json")
+                    .request(
+                        Method.GET,
+                        TestClients.fallRisk().service().urlWithApiPath()
+                            + "assessment?patient=1011515222V785571"))
+            .expect(200)
+            .expectListOf(FallRiskAssessmentResponse.class);
+    assertThat(response).isNotEmpty();
+    assertThat(response.get(0).facilityId()).isEqualTo("640");
+    assertThat(response.get(0).patient()).isEqualTo("1011515222V785571");
   }
 }

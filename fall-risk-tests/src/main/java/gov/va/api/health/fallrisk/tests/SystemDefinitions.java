@@ -18,6 +18,7 @@ public class SystemDefinitions {
     String url = "https://dev-api.va.gov";
     return SystemDefinition.builder()
         .fallRisk(serviceDefinition("fall-risk", url, 443, "/services/fall-risk"))
+        .testIds(labIds())
         .build();
   }
 
@@ -26,6 +27,7 @@ public class SystemDefinitions {
     String url = "http://localhost";
     return SystemDefinition.builder()
         .fallRisk(serviceDefinition("fall-risk", url, 8070, "/"))
+        .testIds(labIds())
         .build();
   }
 
@@ -34,6 +36,7 @@ public class SystemDefinitions {
     String url = "https://api.va.gov";
     return SystemDefinition.builder()
         .fallRisk(serviceDefinition("fall-risk", url, 443, "/services/fall-risk/"))
+        .testIds(prodIds())
         .build();
   }
 
@@ -42,6 +45,7 @@ public class SystemDefinitions {
     String url = "https://blue.qa.lighthouse.va.gov";
     return SystemDefinition.builder()
         .fallRisk(serviceDefinition("fall-risk", url, 443, "/fall-risk/"))
+        .testIds(prodIds())
         .build();
   }
 
@@ -60,6 +64,7 @@ public class SystemDefinitions {
     String url = "https://blue.staging.lighthouse.va.gov";
     return SystemDefinition.builder()
         .fallRisk(serviceDefinition("fall-risk", url, 443, "/fall-risk/"))
+        .testIds(prodIds())
         .build();
   }
 
@@ -68,6 +73,7 @@ public class SystemDefinitions {
     String url = "https://blue.staging-lab.lighthouse.va.gov";
     return SystemDefinition.builder()
         .fallRisk(serviceDefinition("fall-risk", url, 443, "/fall-risk/"))
+        .testIds(labIds())
         .build();
   }
 
@@ -89,5 +95,17 @@ public class SystemDefinitions {
       default:
         throw new IllegalArgumentException("Unknown sentinel environment: " + Environment.get());
     }
+  }
+
+  private TestIds labIds() {
+    return TestIds.builder().patient("43000199").station("640").since("1200000000").build();
+  }
+
+  private TestIds prodIds() {
+    return TestIds.builder()
+        .patient("1011515222V785571")
+        .station("640")
+        .since("1558204659")
+        .build();
   }
 }

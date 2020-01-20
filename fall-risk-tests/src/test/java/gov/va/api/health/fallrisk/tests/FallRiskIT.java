@@ -20,7 +20,7 @@ public class FallRiskIT {
   }
 
   @Test
-  @Category({Local.class, LabFallRisk.class})
+  @Category({Local.class, LabFallRisk.class, ProdFallRisk.class})
   public void searchByFacilityAndSince() {
     List<FallRiskAssessmentResponse> response =
         ExpectedResponse.of(
@@ -32,29 +32,13 @@ public class FallRiskIT {
                     .request(
                         Method.GET,
                         TestClients.fallRisk().service().urlWithApiPath()
-                            + "assessment?facility=640&since=1200000000"))
+                            + "assessment?facility="
+                            + systemDefinition().testIds().station()
+                            + "&since="
+                            + systemDefinition().testIds().since()))
             .expect(200)
             .expectListOf(FallRiskAssessmentResponse.class);
-    assertThat(response.size()).isEqualTo(2);
-  }
-
-  @Test
-  @Category({ProdFallRisk.class})
-  public void searchByFacilityAndSinceForProd() {
-    List<FallRiskAssessmentResponse> response =
-        ExpectedResponse.of(
-                TestClients.fallRisk()
-                    .service()
-                    .requestSpecification()
-                    .header(fallRiskToken())
-                    .contentType("application/json")
-                    .request(
-                        Method.GET,
-                        TestClients.fallRisk().service().urlWithApiPath()
-                            + "assessment?facility=640&since=1558204659"))
-            .expect(200)
-            .expectListOf(FallRiskAssessmentResponse.class);
-    assertThat(response).hasSizeGreaterThanOrEqualTo(2);
+    assertThat(response).isNotEmpty();
   }
 
   @Test
@@ -74,7 +58,7 @@ public class FallRiskIT {
   }
 
   @Test
-  @Category({Local.class, LabFallRisk.class})
+  @Category({Local.class, LabFallRisk.class, ProdFallRisk.class})
   public void searchByPatient() {
     List<FallRiskAssessmentResponse> response =
         ExpectedResponse.of(
@@ -86,32 +70,16 @@ public class FallRiskIT {
                     .request(
                         Method.GET,
                         TestClients.fallRisk().service().urlWithApiPath()
-                            + "assessment?patient=43000199"))
-            .expect(200)
-            .expectListOf(FallRiskAssessmentResponse.class);
-    assertThat(response.size()).isEqualTo(1);
-    assertThat(response.get(0).facilityId()).isEqualTo("640");
-    assertThat(response.get(0).patient()).isEqualTo("43000199");
-  }
-
-  @Test
-  @Category({ProdFallRisk.class})
-  public void searchByPatientForProd() {
-    List<FallRiskAssessmentResponse> response =
-        ExpectedResponse.of(
-                TestClients.fallRisk()
-                    .service()
-                    .requestSpecification()
-                    .header(fallRiskToken())
-                    .contentType("application/json")
-                    .request(
-                        Method.GET,
-                        TestClients.fallRisk().service().urlWithApiPath()
-                            + "assessment?patient=1011515222V785571"))
+                            + "assessment?patient="
+                            + systemDefinition().testIds().patient()))
             .expect(200)
             .expectListOf(FallRiskAssessmentResponse.class);
     assertThat(response).isNotEmpty();
-    assertThat(response.get(0).facilityId()).isEqualTo("640");
-    assertThat(response.get(0).patient()).isEqualTo("1011515222V785571");
+    assertThat(response.get(0).facilityId()).isEqualTo(systemDefinition().testIds().station());
+    assertThat(response.get(0).patient()).isEqualTo(systemDefinition().testIds().patient());
+  }
+
+  private SystemDefinition systemDefinition() {
+    return SystemDefinitions.systemDefinition();
   }
 }

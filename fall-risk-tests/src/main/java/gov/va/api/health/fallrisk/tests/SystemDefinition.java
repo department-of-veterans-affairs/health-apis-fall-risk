@@ -8,6 +8,7 @@ import lombok.Value;
 @Value
 @Builder
 public class SystemDefinition {
+  @NonNull TestIds testIds;
 
   @NonNull ServiceDefinition fallRisk;
 }

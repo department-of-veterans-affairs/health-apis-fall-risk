@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RestController
 @RequestMapping(
-  value = {"/assessment"},
-  produces = {"application/json"}
-)
+    value = {"/assessment"},
+    produces = {"application/json"})
 @Slf4j
 @Builder
 @Loggable
@@ -53,9 +52,7 @@ public class FallRiskAssessmentController {
   @GetMapping(params = {"facility", "since"})
   public List<FallRiskAssessmentResponse> searchByFacilityAndSince(
       @RequestParam("facility") int facilityId, @RequestParam("since") String since) {
-    return fallRiskRepository
-        .findByFacilityIdAndTime(facilityId, asInstant(since))
-        .stream()
+    return fallRiskRepository.findByFacilityIdAndTime(facilityId, asInstant(since)).stream()
         .map(FallRiskEntity::asDatamartFallRisk)
         .map(DatamartFallRisk::asFallRiskAssessmentResponse)
         .collect(Collectors.toList());
@@ -70,9 +67,7 @@ public class FallRiskAssessmentController {
   @GetMapping(params = {"patient"})
   public List<FallRiskAssessmentResponse> searchByPatient(
       @RequestParam("patient") String patientIcn) {
-    return fallRiskRepository
-        .findByPatientFullIcn(patientIcn)
-        .stream()
+    return fallRiskRepository.findByPatientFullIcn(patientIcn).stream()
         .map(FallRiskEntity::asDatamartFallRisk)
         .map(DatamartFallRisk::asFallRiskAssessmentResponse)
         .collect(Collectors.toList());

@@ -1,10 +1,8 @@
 package gov.va.api.health.fallrisk.service.controller;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.time.Instant;
 import java.util.Optional;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +21,8 @@ public class DatamartFallRisk {
   String admitSpecialty;
 
   String attendingProvider;
+
+  String cdwId;
 
   String currentWard;
 
@@ -43,4 +43,18 @@ public class DatamartFallRisk {
   int station;
 
   Optional<String> stationName;
+
+  /**
+   * Convert this survey to a FallRiskResponse.
+   *
+   * @return The FallRiskResponse
+   */
+  FallRiskAssessmentResponse asFallRiskAssessmentResponse() {
+    return FallRiskAssessmentResponse.builder()
+        .patient(patientFullIcn)
+        .facilityId(Integer.toString(station))
+        .morseScore(morseAdmitScore)
+        .timeModified(morseAdmitDateTime)
+        .build();
+  }
 }

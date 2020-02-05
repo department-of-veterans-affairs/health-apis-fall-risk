@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import gov.va.api.health.autoconfig.configuration.JacksonConfig;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,38 +31,17 @@ class FallRiskAssessmentControllerTest {
         DatamartFallRisk.builder()
             .cdwId("1000000030337")
             .patientFullIcn("12345V67890")
-            .morseScore(50)
+            .morseAdmitScore(50)
             .morseCategory("medium")
             .station(640)
-            .surveyGivenDateTimeUtc(Instant.parse("1997-05-09T14:21:18Z"))
-            .surveyName("FAKE SURVEY")
-            .surveyScale("FAKE SCALE")
-            .bedSection("BED")
-            .divisionName("OW")
-            .wardLocationName("WATCHPOINT")
-            .specialty("FALL")
+            .morseAdmitDateTime(Instant.parse("1997-05-09T14:21:18Z"))
+            .admitSpecialty("FALL")
+            .admitDateTime(Instant.parse("1994-02-11T14:21:18Z"))
+            .currentWard("MERCY")
+            .roomBed("RM O BED W")
+            .lastFour("7676")
             .patientName("OXTON, LENA")
-            .stationName("GIBRALTAR")
-            .administeredBy(
-                DatamartFallRisk.Provider.builder()
-                    .emailAddress("drwinston@ow.com")
-                    .firstName("Harold")
-                    .lastName("Winston")
-                    .name("Winston, Harold")
-                    .npi("ilovepeanutbutter")
-                    .officePhone("123")
-                    .serviceSection("GENETICS")
-                    .build())
-            .orderedBy(
-                DatamartFallRisk.Provider.builder()
-                    .npi("heroesneverdie")
-                    .serviceSection("MEDICAL")
-                    .officePhone("911")
-                    .firstName("Angela")
-                    .lastName("Ziegler")
-                    .name("Ziegler, Angela")
-                    .emailAddress("mercy@ow.com")
-                    .build())
+            .stationName(Optional.of("GIBRALTAR"))
             .build();
     return FallRiskEntity.builder()
         .cdwId("1000000030337")
@@ -87,7 +67,6 @@ class FallRiskAssessmentControllerTest {
                 .patient("12345V67890")
                 .facilityId("640")
                 .morseScore(50)
-                .providerEmail("mercy@ow.com")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
                 .build());
   }
@@ -105,7 +84,6 @@ class FallRiskAssessmentControllerTest {
                 .patient("12345V67890")
                 .facilityId("640")
                 .morseScore(50)
-                .providerEmail("mercy@ow.com")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
                 .build());
   }
@@ -121,7 +99,6 @@ class FallRiskAssessmentControllerTest {
                 .patient("12345V67890")
                 .facilityId("640")
                 .morseScore(50)
-                .providerEmail("mercy@ow.com")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
                 .build());
     assertThat(fallRiskEntity.toString()).isNotNull();

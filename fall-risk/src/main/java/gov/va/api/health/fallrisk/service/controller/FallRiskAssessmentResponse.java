@@ -22,6 +22,4 @@ public class FallRiskAssessmentResponse {
   @NotNull
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "UTC")
   Instant timeModified;
-
-  @NotNull String providerEmail;
 }

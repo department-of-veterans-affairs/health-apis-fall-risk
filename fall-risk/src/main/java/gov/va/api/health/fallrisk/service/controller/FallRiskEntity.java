@@ -20,7 +20,7 @@ import lombok.SneakyThrows;
 @Data
 @Entity
 @Builder
-@Table(name = "FallRisk", schema = "app")
+@Table(name = "MorseFallRisk", schema = "app")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

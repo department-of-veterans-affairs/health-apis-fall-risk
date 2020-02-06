@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
       "spring.datasource.url=jdbc:h2:mem:fallrisk",
       "spring.datasource.username=unset",
       "spring.h2.console.enabled=true",
-      "spring.jpa.properties.hibernate.globally_quoted_identifiers=false",
+      "spring.jpa.properties.hibernate.globally_quoted_identifiers=false"
     })
 public class ApplicationTest {
 

@@ -44,6 +44,10 @@ public class DatamartFallRisk {
 
   Optional<String> stationName;
 
+  @Builder.Default private String objectType = "Survey";
+
+  @Builder.Default private String objectVersion = "1";
+
   /**
    * Convert this survey to a FallRiskResponse.
    *

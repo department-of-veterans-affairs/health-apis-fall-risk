@@ -66,9 +66,18 @@ class FallRiskAssessmentControllerTest {
         .containsExactly(
             FallRiskAssessmentResponse.builder()
                 .patient("12345V67890")
-                .facilityId("640")
                 .morseScore(50)
+                .attendingProvider("ZIEGLER, ANGELA")
+                .morseCategory("medium")
+                .facilityId("640")
+                .admitDateTime(Instant.parse("2016-05-24T14:21:18Z"))
+                .currentWard("MERCY")
+                .roomBed("RM O BED W")
+                .lastFour("7676")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
+                .admitSpecialty("FALL")
+                .patientName("OXTON, LENA")
+                .stationName("GIBRALTAR")
                 .build());
   }
 
@@ -83,9 +92,18 @@ class FallRiskAssessmentControllerTest {
         .containsExactly(
             FallRiskAssessmentResponse.builder()
                 .patient("12345V67890")
-                .facilityId("640")
                 .morseScore(50)
+                .attendingProvider("ZIEGLER, ANGELA")
+                .morseCategory("medium")
+                .facilityId("640")
+                .admitDateTime(Instant.parse("2016-05-24T14:21:18Z"))
+                .currentWard("MERCY")
+                .roomBed("RM O BED W")
+                .lastFour("7676")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
+                .admitSpecialty("FALL")
+                .patientName("OXTON, LENA")
+                .stationName("GIBRALTAR")
                 .build());
   }
 
@@ -98,9 +116,18 @@ class FallRiskAssessmentControllerTest {
         .containsExactly(
             FallRiskAssessmentResponse.builder()
                 .patient("12345V67890")
-                .facilityId("640")
                 .morseScore(50)
+                .attendingProvider("ZIEGLER, ANGELA")
+                .morseCategory("medium")
+                .facilityId("640")
+                .admitDateTime(Instant.parse("2016-05-24T14:21:18Z"))
+                .currentWard("MERCY")
+                .roomBed("RM O BED W")
+                .lastFour("7676")
                 .timeModified(Instant.parse("1997-05-09T14:21:18Z"))
+                .admitSpecialty("FALL")
+                .patientName("OXTON, LENA")
+                .stationName("GIBRALTAR")
                 .build());
     assertThat(fallRiskEntity.toString()).isNotNull();
   }

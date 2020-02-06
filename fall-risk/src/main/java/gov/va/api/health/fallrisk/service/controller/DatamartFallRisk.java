@@ -44,7 +44,7 @@ public class DatamartFallRisk {
 
   Optional<String> stationName;
 
-  @Builder.Default private String objectType = "Survey";
+  @Builder.Default private String objectType = "Fall Risk";
 
   @Builder.Default private String objectVersion = "1";
 
@@ -59,6 +59,15 @@ public class DatamartFallRisk {
         .facilityId(Integer.toString(station))
         .morseScore(morseAdmitScore)
         .timeModified(morseAdmitDateTime)
+        .admitDateTime(admitDateTime)
+        .admitSpecialty(admitSpecialty)
+        .attendingProvider(attendingProvider)
+        .currentWard(currentWard)
+        .lastFour(lastFour)
+        .morseCategory(morseCategory)
+        .patientName(patientName)
+        .roomBed(roomBed)
+        .stationName(stationName.get())
         .build();
   }
 }

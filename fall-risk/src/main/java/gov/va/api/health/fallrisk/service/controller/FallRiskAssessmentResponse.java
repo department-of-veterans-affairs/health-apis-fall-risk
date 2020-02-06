@@ -19,6 +19,24 @@ public class FallRiskAssessmentResponse {
 
   @NotNull String facilityId;
 
+  @NotNull String roomBed;
+
+  @NotNull String currentWard;
+
+  @NotNull String lastFour;
+
+  @NotNull String admitSpecialty;
+
+  @NotNull Instant admitDateTime;
+
+  @NotNull String morseCategory;
+
+  @NotNull String attendingProvider;
+
+  @NotNull String patientName;
+
+  @NotNull String stationName;
+
   @NotNull
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "UTC")
   Instant timeModified;

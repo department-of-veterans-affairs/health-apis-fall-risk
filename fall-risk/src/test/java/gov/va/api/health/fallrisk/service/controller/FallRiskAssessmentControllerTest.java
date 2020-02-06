@@ -48,9 +48,9 @@ class FallRiskAssessmentControllerTest {
         .cdwId("1000000030337")
         .patientFullIcn("12345V67890")
         .station(640)
-        .morseScore(50)
+        .morseAdmitScore(50)
         .morseCategory("medium")
-        .surveyGivenDateTime(Instant.parse("1997-05-09T14:21:18Z"))
+        .morseAdmitDateTime(Instant.parse("1997-05-09T14:21:18Z"))
         .payload(JacksonConfig.createMapper().writeValueAsString(survey))
         .build();
   }

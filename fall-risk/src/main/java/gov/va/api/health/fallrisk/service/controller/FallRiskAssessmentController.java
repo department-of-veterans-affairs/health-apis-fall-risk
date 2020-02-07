@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RestController
 @RequestMapping(
-    value = {"/assessment"},
+    value = {"/assessment", "v0/assessment"},
     produces = {"application/json"})
 @Slf4j
 @Builder

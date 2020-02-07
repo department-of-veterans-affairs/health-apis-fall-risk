@@ -98,14 +98,18 @@ public class SystemDefinitions {
   }
 
   private TestIds labIds() {
-    return TestIds.builder().patient("43000199").station("640").since("1200000000").build();
+    return TestIds.builder()
+        .patient("1011475540V005784")
+        .station("640")
+        .since("1577836800")
+        .build();
   }
 
   private TestIds prodIds() {
     return TestIds.builder()
-        .patient("1011515222V785571")
+        .patient("1011475540V005784")
         .station("640")
-        .since("1558204659")
+        .since("1577836800")
         .build();
   }
 }

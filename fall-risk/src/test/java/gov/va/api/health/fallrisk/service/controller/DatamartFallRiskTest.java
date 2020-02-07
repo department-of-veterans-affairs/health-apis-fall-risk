@@ -4,6 +4,7 @@ import static gov.va.api.health.autoconfig.configuration.JacksonConfig.createMap
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Instant;
+import java.util.Optional;
 import lombok.SneakyThrows;
 import org.junit.Test;
 
@@ -18,39 +19,18 @@ public class DatamartFallRiskTest {
     return DatamartFallRisk.builder()
         .cdwId("1000000030337")
         .patientFullIcn("12345V67890")
-        .morseScore(50)
+        .morseAdmitScore(50)
+        .attendingProvider("ZIEGLER, ANGELA")
         .morseCategory("medium")
         .station(640)
-        .surveyGivenDateTimeUtc(Instant.parse("1997-05-09T14:21:18Z"))
-        .surveyName("FAKE SURVEY")
-        .surveyScale("FAKE SCALE")
-        .bedSection("BED")
-        .divisionName("OW")
-        .locationName("WATCHPOINT")
-        .wardLocationName("LAB")
-        .specialty("FALL")
+        .admitDateTime(Instant.parse("2016-05-24T14:21:18Z"))
+        .currentWard("MERCY")
+        .roomBed("RM O BED W")
+        .lastFour("7676")
+        .morseAdmitDateTime(Instant.parse("1997-05-09T14:21:18Z"))
+        .admitSpecialty("FALL")
         .patientName("OXTON, LENA")
-        .stationName("GIBRALTAR")
-        .administeredBy(
-            DatamartFallRisk.Provider.builder()
-                .emailAddress("drwinston@ow.com")
-                .firstName("Harold")
-                .lastName("Winston")
-                .name("Winston, Harold")
-                .npi("ilovepeanutbutter")
-                .officePhone("123")
-                .serviceSection("GENETICS")
-                .build())
-        .orderedBy(
-            DatamartFallRisk.Provider.builder()
-                .npi("heroesneverdie")
-                .serviceSection("MEDICAL")
-                .officePhone("911")
-                .firstName("Angela")
-                .lastName("Ziegler")
-                .name("Ziegler, Angela")
-                .emailAddress("mercy@ow.com")
-                .build())
+        .stationName(Optional.of("GIBRALTAR"))
         .build();
   }
 

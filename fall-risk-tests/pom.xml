@@ -53,7 +53,6 @@
             </goals>
             <configuration>
               <name>fall-risk</name>
-              <waitForInterrupt>false</waitForInterrupt>
               <healthcheckUrl>http://localhost:8070/actuator/health</healthcheckUrl>
               <skip>${sentinel.skipLaunch}</skip>
               <arguments>

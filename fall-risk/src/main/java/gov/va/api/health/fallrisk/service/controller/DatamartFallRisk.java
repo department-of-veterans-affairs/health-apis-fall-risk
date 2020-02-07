@@ -1,8 +1,8 @@
 package gov.va.api.health.fallrisk.service.controller;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.time.Instant;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,45 +16,37 @@ import lombok.NoArgsConstructor;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class DatamartFallRisk {
 
-  String surveyName;
+  Instant admitDateTime;
 
-  int station;
+  String admitSpecialty;
 
-  String stationName;
+  String attendingProvider;
 
-  String locationName;
+  String cdwId;
 
-  String wardLocationName;
+  String currentWard;
 
-  String divisionName;
+  String lastFour;
 
-  String specialty;
+  Instant morseAdmitDateTime;
 
-  String bedSection;
+  int morseAdmitScore;
 
-  @JsonAlias("patientFullICN")
+  String morseCategory;
+
   String patientFullIcn;
 
   String patientName;
 
-  @JsonAlias("surveyGivenDateTimeUTC")
-  Instant surveyGivenDateTimeUtc;
+  String roomBed;
 
-  int morseScore;
+  int station;
 
-  String morseCategory;
+  Optional<String> stationName;
 
-  String surveyScale;
-
-  Provider orderedBy;
-
-  Provider administeredBy;
-
-  @Builder.Default private String objectType = "Survey";
+  @Builder.Default private String objectType = "Fall Risk";
 
   @Builder.Default private String objectVersion = "1";
-
-  private String cdwId;
 
   /**
    * Convert this survey to a FallRiskResponse.
@@ -65,30 +57,17 @@ public class DatamartFallRisk {
     return FallRiskAssessmentResponse.builder()
         .patient(patientFullIcn)
         .facilityId(Integer.toString(station))
-        .morseScore(morseScore)
-        .providerEmail(orderedBy.emailAddress)
-        .timeModified(surveyGivenDateTimeUtc)
+        .morseScore(morseAdmitScore)
+        .timeModified(morseAdmitDateTime)
+        .admitDateTime(admitDateTime)
+        .admitSpecialty(admitSpecialty)
+        .attendingProvider(attendingProvider)
+        .currentWard(currentWard)
+        .lastFour(lastFour)
+        .morseCategory(morseCategory)
+        .patientName(patientName)
+        .roomBed(roomBed)
+        .stationName(stationName.get())
         .build();
-  }
-
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Provider {
-    String npi;
-
-    String officePhone;
-
-    String serviceSection;
-
-    String name;
-
-    String lastName;
-
-    String firstName;
-
-    String emailAddress;
   }
 }

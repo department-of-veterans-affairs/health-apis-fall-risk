@@ -95,7 +95,6 @@ public class FallRiskIT {
             .expect(200)
             .expectListOf(FallRiskAssessmentResponse.class);
     assertThat(response).isNotEmpty();
-    assertThat(response.get(0).facilityId()).isEqualTo(systemDefinition().testIds().station());
     assertThat(response.get(0).patient()).isEqualTo(systemDefinition().testIds().patient());
   }
 

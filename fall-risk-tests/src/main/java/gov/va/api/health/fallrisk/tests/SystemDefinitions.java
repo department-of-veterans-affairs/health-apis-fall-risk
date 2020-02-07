@@ -107,9 +107,9 @@ public class SystemDefinitions {
 
   private TestIds prodIds() {
     return TestIds.builder()
-        .patient("1011515222V785571")
+        .patient("1011475540V005784")
         .station("640")
-        .since("1558204659")
+        .since("1577836800")
         .build();
   }
 }

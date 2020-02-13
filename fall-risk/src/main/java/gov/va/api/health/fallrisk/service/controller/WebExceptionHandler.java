@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,7 +18,6 @@ import org.springframework.web.client.HttpClientErrorException;
  * Exceptions that escape the rest controllers will be processed by this handler. It will convert
  * exception into different HTTP status codes and produce an error response payload.
  */
-@Slf4j
 @RestControllerAdvice
 @RequestMapping(produces = {"application/json"})
 public class WebExceptionHandler {

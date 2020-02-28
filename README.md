@@ -24,7 +24,7 @@ A doctor having direct contact with and responsibility for patients and who is r
 - Web sites or dashboards may require approval by the VA with regards to security and/or 508 compliance which may not be feasible or desirable for a PoC
 - To protect PII/PHI, the PoC application will be configured with a white-list of acceptable test patients
 - The PoC application will have simple token protected access (no OAuth integration)
-- It’s possible that target caregiver cannot be determined for notification, e.g email missing, in which **ACTION WHEN NO EMAIL IS AVAILABLE** will be done
+- It???s possible that target caregiver cannot be determined for notification, e.g email missing, in which **ACTION WHEN NO EMAIL IS AVAILABLE** will be done
 
 
 ---
